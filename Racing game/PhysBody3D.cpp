@@ -30,6 +30,12 @@ void PhysBody3D::GetTransform(float* matrix) const
 }
 
 // ---------------------------------------------------------
+
+btVector3 PhysBody3D::GetPos()
+{
+	return body->getCenterOfMassPosition();
+}
+// ---------------------------------------------------------
 void PhysBody3D::SetTransform(const float* matrix) const
 {
 	if(body != NULL && matrix != NULL)

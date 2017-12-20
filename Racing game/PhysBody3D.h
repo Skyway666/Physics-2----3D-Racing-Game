@@ -5,6 +5,7 @@
 
 class btRigidBody;
 class Module;
+class btVector3;
 
 // =================================================
 struct PhysBody3D
@@ -16,6 +17,7 @@ public:
 
 	void Push(float x, float y, float z);
 	void GetTransform(float* matrix) const;
+	btVector3 GetPos();
 	void SetTransform(const float* matrix) const;
 	void SetPos(float x, float y, float z);
 	void SetAsSensor(bool is_sensor);

@@ -3,6 +3,9 @@
 #include "Globals.h"
 #include "glmath.h"
 
+class vec3;
+class btVector3;
+
 class ModuleCamera3D : public Module
 {
 public:
@@ -17,6 +20,8 @@ public:
 	void LookAt(const vec3 &Spot);
 	void Move(const vec3 &Movement);
 	float* GetViewMatrix();
+
+	vec3 btVector3_to_vec3(btVector3);
 
 private:
 

@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "PhysBody3D.h"
 #include "ModuleCamera3D.h"
+#include "PhysVehicle3D.h"
 
 ModuleCamera3D::ModuleCamera3D(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -99,6 +100,12 @@ update_status ModuleCamera3D::Update(float dt)
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 
+	btVector3 player_pos_dirty = App->player->vehicle->GetPos();
+	vec3 player_pos = btVector3_to_vec3(player_pos_dirty);
+
+	Look(player_pos, vec3(0, 0, 0));
+	
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -154,4 +161,13 @@ void ModuleCamera3D::CalculateViewMatrix()
 {
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
+}
+
+vec3 ModuleCamera3D::btVector3_to_vec3(btVector3 vector)
+{
+	vec3 ret;
+	ret.x = vector.x;
+	ret.y = vector.y;
+	ret.z = vector.z;
+	return ret;
 }

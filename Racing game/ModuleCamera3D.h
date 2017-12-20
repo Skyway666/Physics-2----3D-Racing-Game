@@ -21,8 +21,6 @@ public:
 	void Move(const vec3 &Movement);
 	float* GetViewMatrix();
 
-	vec3 btVector3_to_vec3(btVector3);
-
 private:
 
 	void CalculateViewMatrix();

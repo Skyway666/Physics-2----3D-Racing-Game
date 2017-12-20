@@ -100,10 +100,17 @@ update_status ModuleCamera3D::Update(float dt)
 	// Recalculate matrix -------------
 	CalculateViewMatrix();
 
-	btVector3 player_pos_dirty = App->player->vehicle->GetPos();
-	vec3 player_pos = btVector3_to_vec3(player_pos_dirty);
+	vec3 player_pos = App->player->vehicle->GetPos();
 
-	Look(player_pos, vec3(0, 0, 0));
+	//We know what position we want to get from the player frame
+	vec3 p_camera_pos(0, 10, -20);
+	mat3x3 rotation = App->player->vehicle->GetRotation();
+	//We need to put it in the world frame, so we need: Origin of the frame respect the world (player_pos) and Rotation matrix of the frame(rotation).
+
+	//In order to fix the camera's height, we'd have to rotate only the x and z axis, and leave the y.
+	vec3 camera_pos = rotation*p_camera_pos + player_pos;
+
+	Look(camera_pos, player_pos);
 	
 	
 	return UPDATE_CONTINUE;
@@ -161,13 +168,4 @@ void ModuleCamera3D::CalculateViewMatrix()
 {
 	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
 	ViewMatrixInverse = inverse(ViewMatrix);
-}
-
-vec3 ModuleCamera3D::btVector3_to_vec3(btVector3 vector)
-{
-	vec3 ret;
-	ret.x = vector.x;
-	ret.y = vector.y;
-	ret.z = vector.z;
-	return ret;
 }

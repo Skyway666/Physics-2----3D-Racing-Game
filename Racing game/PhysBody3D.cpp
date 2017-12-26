@@ -1,11 +1,11 @@
 #include "PhysBody3D.h"
-#include "glmath.h"
 #include "Bullet/include/btBulletDynamicsCommon.h"
 
 // =================================================
-PhysBody3D::PhysBody3D(btRigidBody* body) : body(body)
+PhysBody3D::PhysBody3D(btRigidBody* body, vec3 _size) : body(body)
 {
 	body->setUserPointer(this);
+	size = _size;
 }
 
 // ---------------------------------------------------------
@@ -39,7 +39,6 @@ vec3 PhysBody3D::GetPos()
 	ret.x = copy_v.getX();
 	ret.y = copy_v.getY();
 	ret.z = copy_v.getZ();
-
 	return ret;
 }
 

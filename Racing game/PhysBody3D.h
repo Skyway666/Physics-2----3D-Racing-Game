@@ -2,17 +2,17 @@
 #define __PhysBody3D_H__
 
 #include "p2List.h"
+#include "glmath.h"
 
 class btRigidBody;
 class Module;
-class vec3;
 class mat3x3;
 // =================================================
 struct PhysBody3D
 {
 	friend class ModulePhysics3D;
 public:
-	PhysBody3D(btRigidBody* body);
+	PhysBody3D(btRigidBody* body, vec3 _size);
 	~PhysBody3D();
 
 	void Push(float x, float y, float z);
@@ -23,10 +23,12 @@ public:
 	void SetPos(float x, float y, float z);
 	void SetAsSensor(bool is_sensor);
 	bool IsSensor() const;
+	vec3 size;
 
 private:
 	btRigidBody* body = nullptr;
 	bool is_sensor = false;
+	
 
 public:
 	p2List<Module*> collision_listeners;

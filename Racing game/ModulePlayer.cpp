@@ -141,15 +141,14 @@ update_status ModulePlayer::Update(float dt)
 	{
 	
 		//Set vehicle transform to 0
-		//float initial_transform[16];
-		//
-		//for (int i = 0; i < 16; i++)
-		//{
-		//	initial_transform[i] = 0;
-		//}
-		//initial_transform[4] = 0; initial_transform[8] = 12; initial_transform[12] = 0;
-
-		//vehicle->SetTransform(initial_transform);
+		float initial_transform[16];
+		
+		for (int i = 0; i < 16; i++)
+		{
+			initial_transform[i] = 0;
+		}
+		initial_transform[0] = 1; initial_transform[5] = 1;	 initial_transform[10] = 1;
+		vehicle->SetTransform(initial_transform);
 		vehicle->SetPos(0, 12, 0);
 		//Set vehicle speed to 0
 		vehicle->Stop();

@@ -75,6 +75,11 @@ void PhysVehicle3D::Brake(float force)
 		}
 	}
 }
+// ----------------------------------------------------------------------------
+void PhysVehicle3D::Stop()
+{
+	vehicle->getRigidBody()->setLinearVelocity(btVector3(0, 0, 0));
+}
 
 // ----------------------------------------------------------------------------
 void PhysVehicle3D::Turn(float degrees)

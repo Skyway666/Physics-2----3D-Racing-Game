@@ -21,7 +21,7 @@ bool ModulePlayer::Start()
 	VehicleInfo car;
 
 	// Car properties ----------------------------------------
-	car.chassis_size.Set(2, 2, 4);
+	car.chassis_size.Set(2, 2, 8);
 	car.chassis_offset.Set(0, 1.5, 0);
 	car.mass = 500.0f;
 	car.suspensionStiffness = 15.88f;
@@ -139,19 +139,13 @@ update_status ModulePlayer::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_REPEAT)
 	{
-	
-		//Set vehicle transform to 0
-		float initial_transform[16];
-		
-		for (int i = 0; i < 16; i++)
-		{
-			initial_transform[i] = 0;
-		}
-		initial_transform[0] = 1; initial_transform[5] = 1;	 initial_transform[10] = 1;
-		vehicle->SetTransform(initial_transform);
-		vehicle->SetPos(0, 12, 0);
-		//Set vehicle speed to 0
-		vehicle->Stop();
+		Player_reset();
+	}
+
+	//Reset player if he falls from the circuit
+	if (vehicle->GetPos().y < -20)
+	{
+		Player_reset();
 	}
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
@@ -166,5 +160,19 @@ update_status ModulePlayer::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModulePlayer::Player_reset()
+{
+	//Set vehicle transform to 0
+	float initial_transform[16];
 
+	for (int i = 0; i < 16; i++)
+	{
+		initial_transform[i] = 0;
+	}
+	initial_transform[0] = 1; initial_transform[5] = 1;	 initial_transform[10] = 1;
+	vehicle->SetTransform(initial_transform);
+	vehicle->SetPos(0, 12, 0);
+	//Set vehicle speed to 0
+	vehicle->Stop();
+}
 

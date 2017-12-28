@@ -36,10 +36,21 @@ bool ModuleSceneIntro::Start()
 	SpeedwayPieceDef piece2(vec3(10, 5, 100), vec3(0, 5, 80), -20, vec3(1, 0, 0));
 	speedway_pieces_def.add(piece2);
 
-	Cube s;
-	
+	SpeedwayPieceDef piece3(vec3(10, 5, 50), vec3(0, 5, 195));
+	speedway_pieces_def.add(piece3);
+
+	SpeedwayPieceDef piece4(vec3(10, 5, 50), vec3(-20, 5, 230), -50, vec3 (0,1,0));
+	speedway_pieces_def.add(piece4);
+
+	SpeedwayPieceDef piece5(vec3(10, 5, 100), vec3(-37, -10, 300), 10, vec3(1,0,0));
+	speedway_pieces_def.add(piece5);
+
+	SpeedwayPieceDef piece6(vec3(20, 5, 200), vec3(-37, -20, 450));
+	speedway_pieces_def.add(piece6);
+
 	for (int i = 0; i < speedway_pieces_def.count(); i++)
 	{
+		Cube s;
 		SpeedwayPieceDef piece_def;
 		speedway_pieces_def.at(i, piece_def);
 
@@ -51,15 +62,6 @@ bool ModuleSceneIntro::Start()
 		}
 		speedway.add(App->physics->AddBody(s, 0.0f));
 	}
-
-	//s.size = vec3(10, 5, 100);
-	//s.SetPos(0, 5, 40);
-	//speedway.add(App->physics->AddBody(s, 0.0f));
-
-	//s.size = vec3(10, 5, 100);
-	//s.SetPos(0, 5, 80);
-	//s.SetRotation(-20, vec3(1, 0, 0));
-	//speedway.add(App->physics->AddBody(s, 0.0f));
 
 	return ret;
 }

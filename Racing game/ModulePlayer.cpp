@@ -139,11 +139,22 @@ update_status ModulePlayer::Update(float dt)
 
 	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_REPEAT)
 	{
-		Player_reset();
+		//Set vehicle transform to 0
+		float initial_transform[16];
+
+		for (int i = 0; i < 16; i++)
+		{
+			initial_transform[i] = 0;
+		}
+		initial_transform[0] = 1; initial_transform[5] = 1;	 initial_transform[10] = 1;
+		vehicle->SetTransform(initial_transform);
+		vehicle->SetPos(-37, 10, 300);
+		//Set vehicle speed to 0
+		vehicle->Stop();
 	}
 
 	//Reset player if he falls from the circuit
-	if (vehicle->GetPos().y < -20)
+	if (vehicle->GetPos().y < -100)
 	{
 		Player_reset();
 	}

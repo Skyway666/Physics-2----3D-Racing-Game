@@ -355,6 +355,7 @@ void ModulePhysics3D::AddConstraintHinge(PhysBody3D& bodyA, PhysBody3D& bodyB, c
 	world->addConstraint(hinge, disable_collision);
 	constraints.add(hinge);
 	hinge->setDbgDrawSize(2.0f);
+	hinge->enableAngularMotor(true, 10, 50);
 }
 
 mat3x3 ModulePhysics3D::translate_3x3mat(mat3x3 mat_to_trans)

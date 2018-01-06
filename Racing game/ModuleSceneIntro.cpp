@@ -22,7 +22,7 @@ bool ModuleSceneIntro::Start()
 	startcube.size = vec3(20, 10, 2);
 	startcube.SetPos(0, 10, 8);
 	finishcube.size = vec3(20, 10, 2);
-	finishcube.SetPos(-40, -30, 665);
+	finishcube.SetPos(-40, -30, 920);
 
 	Sstart = App->physics->AddBody(startcube, 0.0f);
 	Sstart->SetAsSensor(true);
@@ -66,6 +66,9 @@ bool ModuleSceneIntro::Start()
 	SpeedwayPieceDef piece11(vec3(10, 20, 20), vec3(-35, -40, 580)); //Obstacle
 	speedway_pieces_def.add(piece11);
 
+	SpeedwayPieceDef piece12(vec3(20, 5, 300), vec3(-37, -40, 830)); //Road
+	speedway_pieces_def.add(piece12);
+
 	for (int i = 0; i < speedway_pieces_def.count(); i++)
 	{
 		Cube c;
@@ -83,10 +86,33 @@ bool ModuleSceneIntro::Start()
 
 	p2List<ObstacleDef> obstacles_def;
 
-	ObstacleDef obstacle1(vec3(0, 30, 170));
+	ObstacleDef obstacle1(vec3(0, 30, 165));
 	obstacles_def.add(obstacle1);
 
-	for (int i = 0; i <= obstacles_def.count(); i++)
+	int h = -26;
+
+	ObstacleDef obstacle2(vec3(-40, h, 650));
+	obstacles_def.add(obstacle2);
+
+	ObstacleDef obstacle3(vec3(-31, h, 700));
+	obstacles_def.add(obstacle3);
+
+	ObstacleDef obstacle4(vec3(-38, h, 750));
+	obstacles_def.add(obstacle4);
+
+	ObstacleDef obstacle5(vec3(-48, h, 800));
+	obstacles_def.add(obstacle5);
+
+	ObstacleDef obstacle6(vec3(-43, h, 850));
+	obstacles_def.add(obstacle6);
+
+	ObstacleDef obstacle7(vec3(-52, h, 700));
+	obstacles_def.add(obstacle7);
+
+	ObstacleDef obstacle8(vec3(-34, h, 825));
+	obstacles_def.add(obstacle8);
+
+	for (int i = 0; i < obstacles_def.count(); i++)
 	{
 		Cube c;
 		ObstacleDef obstacle_def;
@@ -99,7 +125,7 @@ bool ModuleSceneIntro::Start()
 		hammers.add(App->physics->AddBody(c, 50.0f));
 	}
 
-	for (int i = 0; i <= hammers.count(); i++)
+	for (int i = 0; i < hammers.count(); i++)
 	{
 		PhysBody3D* bodyA;
 		PhysBody3D* bodyB;

@@ -72,6 +72,9 @@ public:
 	float last_lap_time = 0;
 	float best_lap_time = 0;
 	float current_lap_time = 0;
+	float remaining_time = 0;
 	Timer lap_timer;
+	Timer lose_timer;
+	Timer wonlost_timer;
 	bool started = false;
 };

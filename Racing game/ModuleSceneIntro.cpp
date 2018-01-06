@@ -149,6 +149,7 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 	current_lap_time = (float)lap_timer.Read() / 1000;
+	remaining_time = 210 - (float)lose_timer.Read() / 1000;
 
 	if (Sstart->GetPos().z >= App->player->z)
 	{
@@ -187,6 +188,19 @@ update_status ModuleSceneIntro::Update(float dt)
 		runder.Render();
 	}
 
+	if (remaining_time <= 0)
+	{
+		if (laps >= 3)
+			App->player->win = true;
+		else
+			App->player->lose = true;
+
+		App->player->Player_reset();
+		wonlost_timer.Start();
+		lose_timer.Start();
+		laps = 0;
+	}
+
 	return UPDATE_CONTINUE;
 }
 
@@ -197,6 +211,8 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	{
 		lap_timer.Start();
 		started = true;
+		if (lose_timer.Read() == 0)
+			lose_timer.Start();
 	}
 	else if (body1 == Sfinish)
 	{

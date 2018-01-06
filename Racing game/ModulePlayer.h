@@ -33,4 +33,6 @@ public:
 	float acceleration;
 	float brake;
 	bool driving = false;
+	bool win = false;
+	bool lose = false;
 };

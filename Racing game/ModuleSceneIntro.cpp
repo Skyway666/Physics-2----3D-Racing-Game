@@ -4,6 +4,7 @@
 #include "Primitive.h"
 #include "PhysBody3D.h"
 #include "ModulePlayer.h"
+#include "ModulePlayer.h"
 
 ModuleSceneIntro::ModuleSceneIntro(Application* app, bool start_enabled) : Module(app, start_enabled)
 {
@@ -32,6 +33,7 @@ bool ModuleSceneIntro::Start()
 	Sfinish->collision_listeners.add(this);
 
 	p2List<SpeedwayPieceDef> speedway_pieces_def;
+	p2List<SpeedwaySensorDef> speedway_sensors_def;
 
 	SpeedwayPieceDef piece1(vec3(10, 5, 100), vec3(0, 5, 40)); //Road
 	speedway_pieces_def.add(piece1);
@@ -53,18 +55,28 @@ bool ModuleSceneIntro::Start()
 
 	SpeedwayPieceDef piece7(vec3(10, 20, 20), vec3(-30, -40, 430)); //Obstacle
 	speedway_pieces_def.add(piece7);
+	SpeedwaySensorDef Spiece7(vec3(8, 20, 20), vec3(-30, -40, 430));
+	speedway_sensors_def.add(Spiece7);
 
 	SpeedwayPieceDef piece8(vec3(10, 20, 20), vec3(-45, -40, 430)); //Obstacle
 	speedway_pieces_def.add(piece8);
+	SpeedwaySensorDef Spiece8(vec3(8, 20, 20), vec3(-45, -40, 430));
+	speedway_sensors_def.add(Spiece8);
 
 	SpeedwayPieceDef piece9(vec3(10, 20, 20), vec3(-35, -40, 500)); //Obstacle
 	speedway_pieces_def.add(piece9);
+	SpeedwaySensorDef Spiece9(vec3(8, 20, 20), vec3(-35, -40, 500));
+	speedway_sensors_def.add(Spiece9);
 
 	SpeedwayPieceDef piece10(vec3(10, 20, 20), vec3(-40, -40, 540)); //Obstacle
 	speedway_pieces_def.add(piece10);
+	SpeedwaySensorDef Spiece10(vec3(8, 20, 20), vec3(-40, -40, 540));
+	speedway_sensors_def.add(Spiece10);
 
 	SpeedwayPieceDef piece11(vec3(10, 20, 20), vec3(-35, -40, 580)); //Obstacle
 	speedway_pieces_def.add(piece11);
+	SpeedwaySensorDef Spiece11(vec3(8, 20, 20), vec3(-35, -40, 580));
+	speedway_sensors_def.add(Spiece11);
 
 	SpeedwayPieceDef piece12(vec3(20, 5, 300), vec3(-37, -40, 830)); //Road
 	speedway_pieces_def.add(piece12);
@@ -94,6 +106,16 @@ bool ModuleSceneIntro::Start()
 			c.SetRotation(piece_def.angle, piece_def.rotation_axis);
 		}
 		speedway.add(App->physics->AddBody(c, 0.0f));
+	}
+	for (int i = 0; i < speedway_sensors_def.count(); i++)
+	{
+		Cube c;
+		SpeedwaySensorDef sensor_def;
+		speedway_sensors_def.at(i, sensor_def);
+
+		c.size = sensor_def.size;
+		c.SetPos(sensor_def.position.x, sensor_def.position.y, sensor_def.position.z);
+		speedway_sensors.add(App->physics->AddBody(c, 0.0f, true, this));
 	}
 
 	p2List<ObstacleDef> obstacles_def;
@@ -237,6 +259,19 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 		laps++;
 		started = false;
 		lap_timer.Reset();
+	}
+	else if (App->player->speed >= 70)
+	{
+		for (int i = 0; i < speedway_sensors.count(); i++)
+		{
+			PhysBody3D* sensor;
+			speedway_sensors.at(i, sensor);
+			if (body1 == sensor)
+			{
+				App->audio->PlayFx(4);
+				App->player->Player_reset();
+			}
+		}
 	}
 }
 

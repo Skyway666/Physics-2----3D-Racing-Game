@@ -78,6 +78,7 @@ public:
 public:
 
 	p2List<PhysBody3D*> speedway;
+	p2List<PhysBody3D*> speedway_sensors;
 	p2List<PhysBody3D*> hammers_axis;
 	p2List<PhysBody3D*> hammers;
 	PhysBody3D* Hammer;

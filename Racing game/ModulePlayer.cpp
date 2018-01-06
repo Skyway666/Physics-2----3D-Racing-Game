@@ -115,6 +115,7 @@ bool ModulePlayer::CleanUp()
 update_status ModulePlayer::Update(float dt)
 {
 	z = vehicle->GetPos().z;
+	speed = vehicle->GetKmh();
 	turn = acceleration = brake = 0.0f;
 
 	if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)

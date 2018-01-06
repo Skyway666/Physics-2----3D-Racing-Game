@@ -151,6 +151,9 @@ update_status ModuleSceneIntro::Update(float dt)
 	current_lap_time = (float)lap_timer.Read() / 1000;
 	remaining_time = 210 - (float)lose_timer.Read() / 1000;
 
+	if (remaining_time < 0)
+		remaining_time = 0;
+
 	if (Sstart->GetPos().z >= App->player->z)
 	{
 		lap_timer.Reset();
@@ -195,9 +198,8 @@ update_status ModuleSceneIntro::Update(float dt)
 		else
 			App->player->lose = true;
 
-		App->player->Player_reset();
 		wonlost_timer.Start();
-		lose_timer.Start();
+		lose_timer.Reset();
 		laps = 0;
 	}
 

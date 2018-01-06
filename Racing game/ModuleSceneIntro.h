@@ -32,6 +32,23 @@ struct SpeedwayPieceDef
 	int angle;
 	vec3 rotation_axis;
 };
+struct SpeedwaySensorDef
+{
+	SpeedwaySensorDef()
+	{
+		size = vec3(0, 0, 0);
+		position = vec3(0, 0, 0);
+	}
+
+	SpeedwaySensorDef(vec3 _size, vec3 _position)
+	{
+		size = _size;
+		position = _position;
+	}
+
+	vec3 size;
+	vec3 position;
+};
 struct ObstacleDef
 {
 	ObstacleDef()

@@ -221,6 +221,13 @@ update_status ModulePlayer::Update(float dt)
 			vehicle->GetKmh(), App->scene_intro->laps, App->scene_intro->current_lap_time, App->scene_intro->last_lap_time, App->scene_intro->best_lap_time,
 			App->scene_intro->remaining_time);
 	}
+
+	if (App->scene_intro->wonlost_timer.Read() > 5000)
+	{
+		win = false;
+		lose = false;
+	}
+
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;

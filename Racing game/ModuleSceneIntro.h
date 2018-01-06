@@ -32,6 +32,23 @@ struct SpeedwayPieceDef
 	int angle;
 	vec3 rotation_axis;
 };
+struct SpeedwaySensorDef
+{
+	SpeedwaySensorDef()
+	{
+		size = vec3(0, 0, 0);
+		position = vec3(0, 0, 0);
+	}
+
+	SpeedwaySensorDef(vec3 _size, vec3 _position)
+	{
+		size = _size;
+		position = _position;
+	}
+
+	vec3 size;
+	vec3 position;
+};
 struct ObstacleDef
 {
 	ObstacleDef()
@@ -72,6 +89,9 @@ public:
 	float last_lap_time = 0;
 	float best_lap_time = 0;
 	float current_lap_time = 0;
+	float remaining_time = 0;
 	Timer lap_timer;
+	Timer lose_timer;
+	Timer wonlost_timer;
 	bool started = false;
 };

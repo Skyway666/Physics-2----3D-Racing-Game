@@ -174,7 +174,12 @@ update_status ModulePlayer::Update(float dt)
 		Mix_Pause(1);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_REPEAT)
+	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN)
+	{
+		Player_reset();
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 	{
 		//Set vehicle transform to 0
 		float initial_transform[16];
@@ -201,10 +206,29 @@ update_status ModulePlayer::Update(float dt)
 
 	vehicle->Render();
 
-		char title[150];
-		sprintf_s(title, "Speed: %.1f Km/h | Laps: %d | Current lap time %.2fs | Last lap time: %.2fs | Best lap time: %.2fs", vehicle->GetKmh(),
-			App->scene_intro->laps, App->scene_intro->current_lap_time, App->scene_intro->last_lap_time, App->scene_intro->best_lap_time);
-		App->window->SetTitle(title);
+	char title[250];
+	if (win && App->scene_intro->wonlost_timer.Read() <= 5000)
+	{
+		sprintf_s(title, "Congratulations, you won!");
+	}
+	else if (lose && App->scene_intro->wonlost_timer.Read() <= 5000)
+	{
+		sprintf_s(title, "Man, you really need to get better at this... I'm afraid to say you just lost...");
+	}
+	else
+	{
+		sprintf_s(title, "Speed: %.1f Km/h | Laps: %d | Current lap time %.2fs | Last lap time: %.2fs | Best lap time: %.2fs | Remaining time: %.2fs",
+			vehicle->GetKmh(), App->scene_intro->laps, App->scene_intro->current_lap_time, App->scene_intro->last_lap_time, App->scene_intro->best_lap_time,
+			App->scene_intro->remaining_time);
+	}
+
+	if (App->scene_intro->wonlost_timer.Read() > 5000)
+	{
+		win = false;
+		lose = false;
+	}
+
+	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
 }

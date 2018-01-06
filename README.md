@@ -12,7 +12,7 @@ Spacebar 	-> Restart lap
 
 Debug Features
 
-F1 	-> Allow camera rotation
+F1 	-> Debug mode (Allow free camera, controlled with WSAD and mouse)
 F2 	-> Reset game (Last lap time and best lap time remain)
 
 Mechanics:
@@ -30,6 +30,8 @@ Win / lose condition	-> If you successfully complete 3 laps before 5 minutes, yo
 -------------------------------------------------------------------------------------------------------------------------
 
 Gihub Link: https://github.com/Skyway666/Physics-2----3D-Racing-Game/
+
+Video of the project: https://www.youtube.com/watch?v=ZqFDILCyO7Q&feature=youtu.be
 
 
 Game by:

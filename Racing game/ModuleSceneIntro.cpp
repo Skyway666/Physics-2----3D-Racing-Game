@@ -183,7 +183,7 @@ bool ModuleSceneIntro::CleanUp()
 update_status ModuleSceneIntro::Update(float dt)
 {
 	current_lap_time = (float)lap_timer.Read() / 1000;
-	remaining_time = 210 - (float)lose_timer.Read() / 1000;
+	remaining_time = 300 - (float)lose_timer.Read() / 1000;
 
 	if (remaining_time < 0)
 		remaining_time = 0;

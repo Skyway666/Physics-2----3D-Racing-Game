@@ -194,6 +194,8 @@ update_status ModulePlayer::Update(float dt)
 		vehicle->SetPos(0, 12, 0);
 		//Set vehicle speed to 0
 		vehicle->Stop();
+		App->scene_intro->lose_timer.Start();
+		App->scene_intro->laps = 0;
 	}
 
 	//Reset player if he falls from the circuit
